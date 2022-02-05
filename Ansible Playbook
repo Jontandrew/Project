@@ -1,0 +1,38 @@
+Playbook
+Note: Cannot not gain access to the current virtual network due to expired account. Working with Azure support right now to get it back up in running. If more proof is needed please conntact on slack
+
+
+---
+- name: Config Redteam with Docker.
+  hosts: webservers
+  become: true
+  tasks:
+  - name: docker.io
+    apt: 
+    forcee_apt_get: yes
+    update_cache: yes
+    name dicker.io
+    state: present
+-name: Install pip3
+  apt:
+  force_apt_get: yes
+  name python_apt_get: yes
+  name: python3-pip
+  state:  present
+  
+-name: Install Docker python module
+  pip:
+   name: docker
+   state: present
+   
+-name: download and lauch a docker web contianer
+docker_countainer:
+ name: dvwa
+ image: dvwa
+ state: started
+ publish_ports: 80:80
+ 
+-name: Enable docker service
+ systemd
+  name: docker
+  enable: yes
